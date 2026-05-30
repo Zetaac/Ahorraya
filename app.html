@@ -3,6 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  import { getFirestore, doc, setDoc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBtnQkQVFf6J3qX00l55_NDi2ahqsN5Qic",
+    authDomain: "ahorraya-fd0c1.firebaseapp.com",
+    projectId: "ahorraya-fd0c1",
+    storageBucket: "ahorraya-fd0c1.firebasestorage.app",
+    messagingSenderId: "803503732620",
+    appId: "1:803503732620:web:f53765ef6de866b0e8c8a9",
+    measurementId: "G-YVD7CEW0YW"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  // Guardar datos del usuario en Firestore
+  async function guardarUsuario(uid, datos) {
+    await setDoc(doc(db, 'usuarios', uid), datos, { merge: true });
+  }
+
+  // Cargar datos del usuario desde Firestore
+  async function cargarUsuario(uid) {
+    const snap = await getDoc(doc(db, 'usuarios', uid));
+    return snap.exists() ? snap.data() : null;
+  }
+
+  // Registrar con email
+  window.fbRegistrar = async function(nombre, email, password) {
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(cred.user, { displayName: nombre });
+      await guardarUsuario(cred.user.uid, {
+        nombre: nombre,
+        email: email,
+        premium: false,
+        creadoEn: new Date().toISOString()
+      });
+      return { ok: true, user: cred.user };
+    } catch(e) {
+      return { ok: false, error: e.code };
+    }
+  };
+
+  // Login con email
+  window.fbLogin = async function(email, password) {
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      return { ok: true, user: cred.user };
+    } catch(e) {
+      return { ok: false, error: e.code };
+    }
+  };
+
+  // Login con Google
+  window.fbGoogle = async function() {
+    try {
+      const cred = await signInWithPopup(auth, googleProvider);
+      await guardarUsuario(cred.user.uid, {
+        nombre: cred.user.displayName,
+        email: cred.user.email,
+        premium: false,
+        creadoEn: new Date().toISOString()
+      });
+      return { ok: true, user: cred.user };
+    } catch(e) {
+      return { ok: false, error: e.code };
+    }
+  };
+
+  // Cerrar sesión
+  window.fbLogout = async function() {
+    await signOut(auth);
+    location.reload();
+  };
+
+  // Guardar datos financieros en Firestore
+  window.fbGuardarDatos = async function(uid, datos) {
+    await setDoc(doc(db, 'datos', uid), datos, { merge: true });
+  };
+
+  // Cargar datos financieros
+  window.fbCargarDatos = async function(uid) {
+    const snap = await getDoc(doc(db, 'datos', uid));
+    return snap.exists() ? snap.data() : null;
+  };
+
+  // Observer de sesión
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      window.currentUser = user;
+      // Cargar datos del usuario desde Firestore
+      const datos = await fbCargarDatos(user.uid);
+      if (datos) {
+        try { window.ST = datos; } catch(e) {}
+      }
+      // Si está en pantalla de auth, pasar a la app
+      const authScreen = document.getElementById('sc-auth');
+      if (authScreen && authScreen.style.display !== 'none') {
+        if (typeof window.initApp === 'function') window.initApp();
+      }
+    } else {
+      window.currentUser = null;
+    }
+  });
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0A0A14">
@@ -230,21 +341,21 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
         <div class="auth-tab" id="tab-reg" onclick="switchAuth('reg')">Crear cuenta</div>
       </div>
       <div id="form-login">
-        <div class="inp-group"><label class="inp-label">Email</label><div class="inp-icon"><input class="inp" type="email" placeholder="tu@email.com"><span>📧</span></div></div>
-        <div class="inp-group"><label class="inp-label">Contraseña</label><div class="inp-icon"><input class="inp" type="password" placeholder="••••••••"><span>🔒</span></div></div>
+        <div class="inp-group"><label class="inp-label">Email</label><div class="inp-icon"><input class="inp" type="email" id="login-email" placeholder="tu@email.com"><span>📧</span></div></div>
+        <div class="inp-group"><label class="inp-label">Contraseña</label><div class="inp-icon"><input class="inp" type="password" id="login-pass" placeholder="••••••••"><span>🔒</span></div></div>
         <div style="text-align:right;font-size:12px;color:var(--morado);cursor:pointer;margin-bottom:14px;">¿Olvidaste tu contraseña?</div>
-        <button class="btn btn-morado" onclick="goTo('sc-app')">Entrar →</button>
+        <button class="btn btn-morado" id="btn-login" data-txt="Entrar →" onclick="doLogin()">Entrar →</button>
         <div class="divider"><div class="divider-line"></div><div class="divider-txt">o entra con</div><div class="divider-line"></div></div>
-        <button class="btn btn-google" onclick="goTo('sc-app')"><span style="font-size:18px;font-weight:700;color:#4285F4;">G</span> Continuar con Google</button>
+        <button class="btn btn-google" id="btn-google" onclick="doGoogle()"><span style="font-size:18px;font-weight:700;color:#4285F4;">G</span> Continuar con Google</button>
         <button class="btn btn-phone" onclick="goTo('sc-verify-phone')"><span style="font-size:16px;">📲</span> Continuar con teléfono</button>
       </div>
       <div id="form-reg" style="display:none;">
         <div class="inp-group"><label class="inp-label">Tu nombre</label><div class="inp-icon"><input class="inp" type="text" placeholder="¿Cómo te llamamos?" id="reg-nom"><span>😊</span></div></div>
-        <div class="inp-group"><label class="inp-label">Email</label><div class="inp-icon"><input class="inp" type="email" placeholder="tu@email.com"><span>📧</span></div></div>
-        <div class="inp-group"><label class="inp-label">Contraseña</label><div class="inp-icon"><input class="inp" type="password" placeholder="Mínimo 8 caracteres"><span>🔒</span></div></div>
-        <button class="btn btn-morado" onclick="goTo('sc-verify-email')">Crear cuenta →</button>
+        <div class="inp-group"><label class="inp-label">Email</label><div class="inp-icon"><input class="inp" type="email" id="reg-email" placeholder="tu@email.com"><span>📧</span></div></div>
+        <div class="inp-group"><label class="inp-label">Contraseña</label><div class="inp-icon"><input class="inp" type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"><span>🔒</span></div></div>
+        <button class="btn btn-morado" id="btn-registro" data-txt="Crear cuenta →" onclick="doRegistro()">Crear cuenta →</button>
         <div class="divider"><div class="divider-line"></div><div class="divider-txt">o regístrate con</div><div class="divider-line"></div></div>
-        <button class="btn btn-google" onclick="goTo('sc-perfil')"><span style="font-size:18px;font-weight:700;color:#4285F4;">G</span> Registrarse con Google</button>
+        <button class="btn btn-google" onclick="doGoogle()"><span style="font-size:18px;font-weight:700;color:#4285F4;">G</span> Registrarse con Google</button>
         <button class="btn btn-phone" onclick="goTo('sc-verify-phone')"><span style="font-size:16px;">📲</span> Registrarse con teléfono</button>
         <div style="font-size:11px;color:var(--texto2);text-align:center;margin-top:14px;line-height:1.6;">Al registrarte aceptas nuestros <span style="color:var(--verde);cursor:pointer;">Términos</span> y <span style="color:var(--verde);cursor:pointer;">Privacidad</span></div>
       </div>
@@ -697,6 +808,57 @@ function switchAuth(mode){
   document.getElementById('tab-reg').className='auth-tab'+(mode==='reg'?' act':'');
   document.getElementById('auth-title').textContent=mode==='login'?'Bienvenido de vuelta':'Crea tu cuenta';
   document.getElementById('auth-sub').textContent=mode==='login'?'Entra y sigue ahorrando':'Gratis · Sin tarjeta · 30 segundos';
+}
+
+// ===== AUTH CON FIREBASE =====
+var AUTH_ERRORS = {
+  'auth/email-already-in-use':'Ese email ya tiene una cuenta. Prueba a entrar.',
+  'auth/weak-password':'La contraseña debe tener al menos 6 caracteres.',
+  'auth/invalid-email':'El email no es válido.',
+  'auth/user-not-found':'No encontramos esa cuenta.',
+  'auth/wrong-password':'Contraseña incorrecta.',
+  'auth/invalid-credential':'Email o contraseña incorrectos.',
+  'auth/too-many-requests':'Demasiados intentos. Espera un momento.'
+};
+function authError(code){ return AUTH_ERRORS[code]||'Error. Inténtalo de nuevo.'; }
+function setLoading(btn,loading){ if(!btn)return; btn.disabled=loading; btn.textContent=loading?'Cargando...':btn.dataset.txt; }
+
+async function doLogin(){
+  var email=document.getElementById('login-email').value.trim();
+  var pass=document.getElementById('login-pass').value;
+  var btn=document.getElementById('btn-login');
+  if(!email||!pass){alert('Rellena email y contraseña');return;}
+  setLoading(btn,true);
+  if(typeof window.fbLogin !== 'function'){alert('Cargando Firebase, espera un momento e inténtalo de nuevo');setLoading(btn,false);return;}
+  var res=await window.fbLogin(email,pass);
+  setLoading(btn,false);
+  if(res.ok){ST.config.nombre=res.user.displayName||email.split('@')[0];initApp();}
+  else{alert(authError(res.error));}
+}
+
+async function doRegistro(){
+  var nombre=document.getElementById('reg-nom').value.trim();
+  var email=document.getElementById('reg-email').value.trim();
+  var pass=document.getElementById('reg-pass').value;
+  var btn=document.getElementById('btn-registro');
+  if(!nombre||!email||!pass){alert('Rellena todos los campos');return;}
+  setLoading(btn,true);
+  if(typeof window.fbRegistrar !== 'function'){alert('Cargando Firebase, espera un momento e inténtalo de nuevo');setLoading(btn,false);return;}
+  var res=await window.fbRegistrar(nombre,email,pass);
+  setLoading(btn,false);
+  if(res.ok){ST.config.nombre=nombre;goTo('sc-perfil');}
+  else{alert(authError(res.error));}
+}
+
+async function doGoogle(){
+  if(typeof window.fbGoogle !== 'function'){alert('Cargando Firebase, espera un momento e inténtalo de nuevo');return;}
+  var res=await window.fbGoogle();
+  if(res.ok){ST.config.nombre=res.user.displayName||'Usuario';initApp();}
+  else{if(res.error!=='auth/popup-closed-by-user')alert(authError(res.error));}
+}
+
+async function doLogout(){
+  if(confirm('¿Cerrar sesión?')&&typeof window.fbLogout==='function') await window.fbLogout();
 }
 
 function nextCode(input){if(input.value.length===1){var next=input.nextElementSibling;if(next&&next.classList.contains('code-inp'))next.focus();}}

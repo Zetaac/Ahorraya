@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="AhorraYa — Controla tu dinero, reduce vicios y construye un colchón real. Gratis para empezar.">
+<meta name="theme-color" content="#0A0A14">
+<title>AhorraYa — Controla tu dinero de verdad</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --verde:#00C896;--morado:#7C5CFC;--naranja:#FF6B35;--rojo:#FF4757;
+  --azul:#3D9BFF;--amarillo:#FFD700;--rosa:#FF6B9D;
+  --fondo:#0A0A14;--card:#141428;--card2:#1A1A2E;
+  --texto:#fff;--texto2:#A0A0C0;--borde:#1E1E38;
+}
+body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--borde);}
+.nav-logo{font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--verde),var(--morado));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-cta{background:linear-gradient(135deg,var(--verde),var(--morado));color:#fff;border:none;border-radius:99px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(124,92,252,0.15),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(0,200,150,0.12),transparent 60%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,200,150,0.12);border:1px solid rgba(0,200,150,0.3);border-radius:99px;padding:6px 14px;font-size:12px;color:var(--verde);font-weight:600;margin-bottom:24px;}
+.hero-title{font-size:clamp(32px,6vw,64px);font-weight:800;line-height:1.1;margin-bottom:20px;}
+.hero-title span{background:linear-gradient(90deg,var(--verde),var(--morado),var(--naranja));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--texto2);max-width:560px;line-height:1.6;margin-bottom:36px;}
+.btn-hero{background:linear-gradient(135deg,var(--verde),var(--morado));color:#fff;border:none;border-radius:12px;padding:16px 32px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 8px 32px rgba(124,92,252,0.3);}
+.btn-hero2{background:transparent;color:#fff;border:1px solid var(--borde);border-radius:12px;padding:16px 32px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;margin-left:12px;}
+.hero-btns{margin-bottom:60px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+section{padding:80px 24px;}
+.section-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 12px;border-radius:99px;margin-bottom:14px;}
+.section-title{font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.2;margin-bottom:14px;}
+.section-sub{font-size:15px;color:var(--texto2);line-height:1.6;max-width:500px;}
+.center{text-align:center;display:flex;flex-direction:column;align-items:center;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;max-width:900px;margin:48px auto 0;}
+.feature-card{background:var(--card);border-radius:16px;padding:22px;border:1px solid var(--borde);}
+.feature-card:hover{border-color:var(--verde);transition:border-color 0.2s;}
+.feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.feature-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.feature-desc{font-size:13px;color:var(--texto2);line-height:1.6;}
+.planes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:700px;margin:48px auto 0;}
+.plan-card{background:var(--card);border-radius:20px;padding:24px;border:1px solid var(--borde);}
+.plan-premium{background:linear-gradient(135deg,#1a0f3a,#2d1a5e);border-color:var(--amarillo);position:relative;overflow:hidden;}
+.plan-premium::before{content:'MÁS POPULAR';position:absolute;top:14px;right:-22px;background:var(--amarillo);color:#000;font-size:10px;font-weight:800;padding:4px 28px;transform:rotate(35deg);}
+.pf{font-size:13px;padding:5px 0;display:flex;align-items:center;gap:8px;}
+.pf.ok{color:#fff;}.pf.no{color:var(--texto2);}
+.plan-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-top:16px;text-decoration:none;display:block;text-align:center;}
+.btn-free{background:var(--borde);color:var(--texto2);}
+.btn-premium{background:linear-gradient(135deg,var(--amarillo),var(--naranja));color:#000;}
+.testimonios{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:900px;margin:48px auto 0;}
+.t-card{background:var(--card);border-radius:16px;padding:20px;border:1px solid var(--borde);}
+.cta-box{background:linear-gradient(135deg,rgba(124,92,252,0.2),rgba(0,200,150,0.15));border:1px solid var(--borde);border-radius:24px;padding:60px 24px;text-align:center;max-width:700px;margin:0 auto;}
+footer{padding:40px 24px;text-align:center;border-top:1px solid var(--borde);}
+.install-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--morado),var(--verde));color:#fff;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:200;max-width:380px;width:calc(100% - 40px);opacity:0;transition:opacity 0.4s;}
+.install-banner.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">💰 AhorraYa</div>
+  <a class="nav-cta" href="app.html">Instalar gratis</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">✨ Ya disponible — instala gratis en tu móvil</div>
+  <h1 class="hero-title">Controla tu dinero.<br><span>Deja de regalárselo al banco.</span></h1>
+  <p class="hero-sub">AhorraYa te muestra exactamente dónde va tu dinero, cuánto gastas en vicios al año y cómo construir un colchón real sin mentirte a ti mismo.</p>
+  <div class="hero-btns">
+    <a class="btn-hero" href="app.html">📱 Instalar gratis</a>
+    <a class="btn-hero2" href="#como">Ver cómo funciona →</a>
+  </div>
+</div>
+
+<section>
+  <div class="center">
+    <div class="section-badge" style="background:rgba(0,200,150,0.12);color:var(--verde);">✨ FUNCIONES</div>
+    <h2 class="section-title">Todo lo que necesitas<br>para controlar tu dinero</h2>
+    <p class="section-sub">No es una hoja de Excel. Es un asesor financiero en tu bolsillo que te habla claro.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(0,200,150,0.15);">📊</div><div class="feature-title">Gastos por categoría</div><div class="feature-desc">Vivienda, comida, suscripciones, seguros, deudas... todo desglosado visualmente para ver de un vistazo dónde se va tu dinero.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,71,87,0.15);">🚬</div><div class="feature-title">Vicios y hábitos</div><div class="feature-desc">¿Sabes cuánto gastas en tabaco al año? La app te lo muestra en mes, año y 5 años. Duele, pero hace efecto.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(124,92,252,0.15);">🐷</div><div class="feature-title">Colchón de ahorro real</div><div class="feature-desc">La app calcula cuánto apartar, tú lo haces en tu banco y confirmas. Sin trampa ni cartón.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(61,155,255,0.15);">👨‍👩‍👧</div><div class="feature-title">Modo pareja y familia</div><div class="feature-desc">Suma los ingresos del hogar y calcula cuánto puede ahorrar cada uno. Para parejas o familias de hasta 5 personas.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,107,53,0.15);">🏆</div><div class="feature-title">Retos de ahorro</div><div class="feature-desc">30 días sin capricho, mes sin alcohol, reto de las 52 semanas... El ahorro convertido en un juego que quieres ganar.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,71,87,0.15);">🏦</div><div class="feature-title">Calculadora de deudas</div><div class="feature-desc">Metes lo que debes, la cuota y el interés. La app te dice cuándo terminas y cuánto le regalas al banco.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,215,0,0.15);">✨</div><div class="feature-title">Análisis con IA</div><div class="feature-desc">IA que analiza tus datos reales y te da consejos concretos basados en tu situación, no frases genéricas.</div></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(0,200,150,0.15);">📈</div><div class="feature-title">Gráficos por mes</div><div class="feature-desc">Compara ingresos, gastos y ahorro mes a mes y ve la proyección de lo que ahorrarías si reduces gastos.</div></div>
+  </div>
+</section>
+
+<section id="como" style="background:linear-gradient(180deg,var(--fondo),#0d0d20,var(--fondo));">
+  <div class="center">
+    <div class="section-badge" style="background:rgba(124,92,252,0.12);color:var(--morado);">🚀 CÓMO FUNCIONA</div>
+    <h2 class="section-title">En 5 minutos tienes<br>tu primera foto financiera</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:900px;margin:48px auto 0;text-align:center;">
+    <div><div style="width:48px;height:48px;border-radius:50%;background:rgba(0,200,150,0.15);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 14px;">1</div><div style="font-size:24px;margin-bottom:10px;">📱</div><div style="font-size:15px;font-weight:700;margin-bottom:6px;">Instala la app</div><div style="font-size:13px;color:var(--texto2);">Sin App Store. Pulsa instalar y en 10 segundos está en tu pantalla de inicio.</div></div>
+    <div><div style="width:48px;height:48px;border-radius:50%;background:rgba(124,92,252,0.15);color:var(--morado);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 14px;">2</div><div style="font-size:24px;margin-bottom:10px;">✏️</div><div style="font-size:15px;font-weight:700;margin-bottom:6px;">Mete tus datos</div><div style="font-size:13px;color:var(--texto2);">Ingresos y gastos. Solo las categorías que tengas tú.</div></div>
+    <div><div style="width:48px;height:48px;border-radius:50%;background:rgba(255,107,53,0.15);color:var(--naranja);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 14px;">3</div><div style="font-size:24px;margin-bottom:10px;">🤖</div><div style="font-size:15px;font-weight:700;margin-bottom:6px;">La IA te analiza</div><div style="font-size:13px;color:var(--texto2);">Consejos concretos basados en TUS números reales.</div></div>
+    <div><div style="width:48px;height:48px;border-radius:50%;background:rgba(255,215,0,0.15);color:var(--amarillo);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 14px;">4</div><div style="font-size:24px;margin-bottom:10px;">💪</div><div style="font-size:15px;font-weight:700;margin-bottom:6px;">Actúa y ahorra</div><div style="font-size:13px;color:var(--texto2);">Confirma tu ahorro, acepta retos, ve crecer tu colchón mes a mes.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="center">
+    <div class="section-badge" style="background:rgba(255,215,0,0.1);color:var(--amarillo);">💰 PLANES</div>
+    <h2 class="section-title">Empieza gratis.<br>Mejora cuando quieras.</h2>
+  </div>
+  <div class="planes-grid">
+    <div class="plan-card">
+      <div style="font-size:13px;color:var(--texto2);margin-bottom:8px;">Plan gratuito</div>
+      <div style="font-size:36px;font-weight:800;color:var(--verde);">0€</div>
+      <div style="font-size:13px;color:var(--texto2);margin-bottom:16px;">para siempre</div>
+      <div class="pf ok">✅ Registro de gastos e ingresos</div>
+      <div class="pf ok">✅ Colchón de ahorro básico</div>
+      <div class="pf ok">✅ 2 retos de ahorro</div>
+      <div class="pf ok">✅ 5 consultas IA al mes</div>
+      <div class="pf no">⚪ Modo pareja y familia</div>
+      <div class="pf no">⚪ Gráficos comparativos</div>
+      <div class="pf no">⚪ IA ilimitada</div>
+      <a class="plan-btn btn-free" href="app.html">Instalar gratis</a>
+    </div>
+    <div class="plan-card plan-premium">
+      <div style="font-size:13px;color:rgba(255,215,0,0.7);margin-bottom:8px;">Plan Premium</div>
+      <div style="font-size:36px;font-weight:800;color:var(--amarillo);">3€</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;">al mes · o 25€/año</div>
+      <div class="pf ok">✅ Todo del plan gratuito</div>
+      <div class="pf ok">✅ IA ilimitada</div>
+      <div class="pf ok">✅ Modo pareja y familia</div>
+      <div class="pf ok">✅ Todos los retos</div>
+      <div class="pf ok">✅ Gráficos comparativos</div>
+      <div class="pf ok">✅ Notificaciones de logros</div>
+      <div class="pf ok">✅ Sin publicidad</div>
+      <a class="plan-btn btn-premium" href="app.html">🚀 Probar 7 días gratis</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--texto2);">Sin permanencia · Cancela cuando quieras</div>
+</section>
+
+<section>
+  <div class="center">
+    <div class="section-badge" style="background:rgba(255,107,53,0.12);color:var(--naranja);">⭐ OPINIONES</div>
+    <h2 class="section-title">Lo que dicen los primeros usuarios</h2>
+  </div>
+  <div class="testimonios">
+    <div class="t-card"><div style="color:var(--amarillo);margin-bottom:10px;">★★★★★</div><div style="font-size:13px;color:var(--texto2);line-height:1.6;margin-bottom:14px;font-style:italic;">"No sabía que gastaba 1.800€ al año en tabaco y cafés. Verlo así me hizo cambiar de verdad."</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--rosa));display:flex;align-items:center;justify-content:center;font-weight:700;">C</div><div><div style="font-size:13px;font-weight:600;">Carlos M.</div><div style="font-size:11px;color:var(--texto2);">Madrid</div></div></div></div>
+    <div class="t-card"><div style="color:var(--amarillo);margin-bottom:10px;">★★★★★</div><div style="font-size:13px;color:var(--texto2);line-height:1.6;margin-bottom:14px;font-style:italic;">"Lo usamos mi pareja y yo. Por fin vemos los gastos del hogar de verdad y cuánto puede ahorrar cada uno."</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--azul));display:flex;align-items:center;justify-content:center;font-weight:700;">L</div><div><div style="font-size:13px;font-weight:600;">Laura G.</div><div style="font-size:11px;color:var(--texto2);">Barcelona</div></div></div></div>
+    <div class="t-card"><div style="color:var(--amarillo);margin-bottom:10px;">★★★★★</div><div style="font-size:13px;color:var(--texto2);line-height:1.6;margin-bottom:14px;font-style:italic;">"La calculadora de deudas me abrió los ojos. Le estaba regalando 4.200€ al banco y no lo sabía."</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--naranja),var(--amarillo));display:flex;align-items:center;justify-content:center;font-weight:700;">R</div><div><div style="font-size:13px;font-weight:600;">Roberto T.</div><div style="font-size:11px;color:var(--texto2);">Valencia</div></div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-box">
+    <div style="font-size:48px;margin-bottom:16px;">💰</div>
+    <h2 style="font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:14px;">¿Cuánto dinero llevas<br>perdiendo sin saberlo?</h2>
+    <p style="font-size:15px;color:var(--texto2);margin-bottom:28px;line-height:1.6;">En 5 minutos lo sabes. Gratis. Sin tarjeta. Sin excusas.</p>
+    <a class="btn-hero" href="app.html">📱 Instalar AhorraYa gratis</a>
+    <div style="margin-top:14px;font-size:12px;color:var(--texto2);">Sin App Store · Gratis para siempre · 7 días Premium gratis</div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--verde),var(--morado));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;">💰 AhorraYa</div>
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+    <span style="font-size:12px;color:var(--texto2);cursor:pointer;">Privacidad</span>
+    <span style="font-size:12px;color:var(--texto2);cursor:pointer;">Términos</span>
+    <span style="font-size:12px;color:var(--texto2);cursor:pointer;">Contacto</span>
+  </div>
+  <div style="font-size:12px;color:var(--texto2);">© 2026 AhorraYa · Hecho para que tu dinero trabaje para ti</div>
+</footer>
+
+<div class="install-banner" id="banner">
+  <div style="font-size:24px;">💰</div>
+  <div style="flex:1;"><div style="font-size:13px;font-weight:700;">Instala AhorraYa gratis</div><div style="font-size:11px;opacity:0.85;margin-top:2px;">Sin App Store · En tu móvil en 10 segundos</div></div>
+  <a href="app.html" style="background:#fff;color:var(--morado);border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;flex-shrink:0;">Instalar</a>
+  <button onclick="document.getElementById('banner').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:18px;flex-shrink:0;">✕</button>
+</div>
+
+<script>
+setTimeout(function(){document.getElementById('banner').classList.add('show');},3000);
+</script>
+</body>
+</html>

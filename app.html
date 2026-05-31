@@ -290,7 +290,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
 <div class="phone" id="app">
 
   <!-- ===== ONBOARDING ===== -->
-  <div id="sc-ob1" class="ob-slide">
+  <div id="sc-ob1" style="display:block;" class="ob-slide">
     <div class="ob-emoji">💰</div>
     <h1 class="ob-title">Controla tu dinero.<br><span style="background:linear-gradient(90deg,var(--verde),var(--morado));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">De verdad.</span></h1>
     <p class="ob-sub">AhorraYa te muestra exactamente dónde va tu dinero y cómo construir un colchón real.</p>
@@ -299,7 +299,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
     <div style="font-size:13px;color:var(--texto2);margin-top:14px;cursor:pointer;" onclick="goTo('sc-auth')">Saltar introducción</div>
   </div>
 
-  <div id="sc-ob2" style="display:none;" class="ob-slide">
+  <div id="sc-ob2" style="display:none;min-height:100vh;" class="ob-slide">
     <div class="ob-emoji">🚬</div>
     <h1 class="ob-title">¿Sabes cuánto gastas<br><span style="color:var(--rojo);">en vicios al año?</span></h1>
     <p class="ob-sub">Tabaco, alcohol, suscripciones sin usar... La mayoría no lo sabe. Por eso no lo cambia.</p>
@@ -313,7 +313,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
     <div style="font-size:13px;color:var(--texto2);margin-top:14px;cursor:pointer;" onclick="goTo('sc-auth')">Saltar</div>
   </div>
 
-  <div id="sc-ob3" style="display:none;" class="ob-slide">
+  <div id="sc-ob3" style="display:none;min-height:100vh;" class="ob-slide">
     <div class="ob-emoji">🏦</div>
     <h1 class="ob-title">Descubre cuánto le<br><span style="color:var(--morado);">regalas al banco</span></h1>
     <p class="ob-sub">Nuestra calculadora de deudas te dice exactamente cuándo terminas de pagar y cuánto te cobran de intereses.</p>
@@ -322,7 +322,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
     <div style="font-size:13px;color:var(--texto2);margin-top:14px;cursor:pointer;" onclick="goTo('sc-auth')">Saltar</div>
   </div>
 
-  <div id="sc-ob4" style="display:none;" class="ob-slide">
+  <div id="sc-ob4" style="display:none;min-height:100vh;" class="ob-slide">
     <div class="ob-emoji">🏆</div>
     <h1 class="ob-title">Gratis para empezar.<br><span style="color:var(--amarillo);">3€/mes para todo.</span></h1>
     <p class="ob-sub">Empieza hoy sin tarjeta. Cuando quieras más — IA ilimitada, modo familia, todos los retos — son solo 3€ al mes.</p>
@@ -331,7 +331,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- ===== AUTH ===== -->
-  <div id="sc-auth" style="display:none;">
+  <div id="sc-auth" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div class="auth-wrap">
       <div class="auth-logo">💰 AhorraYa</div>
       <div style="font-size:20px;font-weight:700;text-align:center;margin-bottom:6px;" id="auth-title">Bienvenido de vuelta</div>
@@ -363,7 +363,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- ===== VERIFICAR EMAIL ===== -->
-  <div id="sc-verify-email" style="display:none;">
+  <div id="sc-verify-email" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div style="padding:20px 28px 0;"><span style="font-size:22px;cursor:pointer;" onclick="goTo('sc-auth')">←</span></div>
     <div style="padding:40px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;">
       <div style="width:80px;height:80px;border-radius:50%;background:rgba(61,155,255,0.15);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;">📧</div>
@@ -383,7 +383,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- ===== VERIFICAR TELÉFONO ===== -->
-  <div id="sc-verify-phone" style="display:none;">
+  <div id="sc-verify-phone" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div style="padding:20px 28px 0;"><span style="font-size:22px;cursor:pointer;" onclick="goTo('sc-auth')">←</span></div>
     <div style="padding:20px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;">
       <div style="width:80px;height:80px;border-radius:50%;background:rgba(0,200,150,0.15);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;">📲</div>
@@ -404,7 +404,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
     </div>
   </div>
 
-  <div id="sc-verify-sms" style="display:none;">
+  <div id="sc-verify-sms" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div style="padding:20px 28px 0;"><span style="font-size:22px;cursor:pointer;" onclick="goTo('sc-verify-phone')">←</span></div>
     <div style="padding:20px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;">
       <div style="width:80px;height:80px;border-radius:50%;background:rgba(0,200,150,0.15);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;">📲</div>
@@ -424,7 +424,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- ===== PERFIL SETUP ===== -->
-  <div id="sc-perfil" style="display:none;">
+  <div id="sc-perfil" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div style="padding:20px 28px 40px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><span style="font-size:22px;cursor:pointer;" onclick="goTo('sc-auth')">←</span><span style="font-size:12px;color:var(--texto2);">Último paso</span></div>
       <div class="pav" onclick="alert('📷 Aquí abrirías la cámara para tu foto de perfil')"><span id="pav-letra">?</span><div class="pav-edit">📷</div></div>
@@ -453,7 +453,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- ===== BIENVENIDA ===== -->
-  <div id="sc-welcome" style="display:none;">
+  <div id="sc-welcome" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div class="welcome">
       <div style="font-size:64px;margin-bottom:20px;">🎉</div>
       <h1 style="font-size:26px;font-weight:800;margin-bottom:12px;line-height:1.2;">¡Ya estás dentro,<br><span id="wel-nombre" style="background:linear-gradient(90deg,var(--verde),var(--morado));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">campeón</span>!</h1>
@@ -592,7 +592,7 @@ body{background:var(--fondo);color:var(--texto);font-family:-apple-system,BlinkM
   </div>
 
   <!-- PREMIUM -->
-  <div id="sc-premium" style="display:none;">
+  <div id="sc-premium" style="display:none;min-height:100vh;overflow-y:auto;background:var(--fondo);">
     <div style="padding:20px 28px 0;"><span style="font-size:22px;cursor:pointer;" onclick="initApp()">←</span></div>
     <div class="premium-wrap">
       <div style="background:linear-gradient(135deg,#1a0f3a,#2d0a5e);border-radius:20px;padding:28px;text-align:center;margin-bottom:16px;">
@@ -640,17 +640,36 @@ function totalGast(k){return getMes(k).gastos.reduce(function(a,b){return a+b.c;
 function goTo(id){
   document.querySelectorAll('[id^="sc-"]').forEach(function(s){s.style.display='none';});
   var el=document.getElementById(id);
-  if(el){el.style.display='flex';el.style.flexDirection='column';}
+  if(!el)return;
+  // sc-app necesita flex, el resto block
+  if(id==='sc-app'){el.style.display='flex';el.style.flexDirection='column';}
+  else{el.style.display='block';}
+  window.scrollTo(0,0);
 }
 
 function initApp(){
-  var nom=document.getElementById('pnom')?document.getElementById('pnom').value:'';
-  if(nom)ST.config.nombre=nom;
-  var moneda=document.querySelector('.moneda-opt.sel');
-  if(moneda){var m=moneda.textContent.trim();if(m.includes('€'))ST.config.moneda='€';else if(m.includes('$')&&m.includes('MX'))ST.config.moneda='MX$';else if(m.includes('COP'))ST.config.moneda='COP$';else if(m.includes('ARS'))ST.config.moneda='ARS$';else if(m.includes('£'))ST.config.moneda='£';else ST.config.moneda='$';}
-  ST.primerUso=false;save();
+  try{
+    var nom=document.getElementById('pnom')?document.getElementById('pnom').value:'';
+    if(nom)ST.config.nombre=nom;
+    var moneda=document.querySelector('.moneda-opt.sel');
+    if(moneda){var m=moneda.textContent.trim();if(m.includes('€'))ST.config.moneda='€';else if(m.includes('MX'))ST.config.moneda='MX$';else if(m.includes('COP'))ST.config.moneda='COP$';else if(m.includes('ARS'))ST.config.moneda='ARS$';else if(m.includes('£'))ST.config.moneda='£';else if(m.includes('$'))ST.config.moneda='$';}
+    // Si hay usuario Firebase, usar su nombre
+    if(window.currentUser&&window.currentUser.displayName&&!ST.config.nombre){
+      ST.config.nombre=window.currentUser.displayName;
+    }
+    ST.primerUso=false;
+    save();
+  }catch(e){console.log('initApp error:',e);}
   document.querySelectorAll('[id^="sc-"]').forEach(function(s){s.style.display='none';});
-  document.getElementById('sc-app').style.display='flex';
+  var appEl=document.getElementById('sc-app');
+  appEl.style.display='flex';
+  appEl.style.flexDirection='column';
+  // Asegurar que la primera pantalla nav esté activa
+  var firstNav=document.getElementById('nav-inicio');
+  if(firstNav){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+    firstNav.classList.add('active');
+  }
   renderAll();
 }
 
@@ -868,8 +887,18 @@ function selModo(el){document.querySelectorAll('.modo-opt').forEach(function(e){
 function activarPremium(){ST.premium=true;save();alert('🎉 ¡Premium activado!');document.getElementById('sc-premium').style.display='none';document.getElementById('sc-app').style.display='flex';renderAll();}
 
 // Inicio
-if(ST.primerUso){goTo('sc-ob1');}
-else{document.getElementById('sc-app').style.display='flex';renderAll();}
+// Inicio correcto
+window.addEventListener('DOMContentLoaded', function(){
+  if(ST.primerUso){
+    goTo('sc-ob1');
+  } else {
+    var appEl=document.getElementById('sc-app');
+    document.querySelectorAll('[id^="sc-"]').forEach(function(s){s.style.display='none';});
+    appEl.style.display='flex';
+    appEl.style.flexDirection='column';
+    renderAll();
+  }
+});
 
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}

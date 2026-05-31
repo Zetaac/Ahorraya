@@ -3,23 +3,76 @@
   "short_name": "AhorraYa",
   "description": "Controla tu dinero de verdad. Ahorra más, gasta menos, vive mejor.",
   "start_url": "/app.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0A0A14",
   "theme_color": "#00C896",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "lang": "es",
+  "categories": ["finance", "productivity"],
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "https://placehold.co/48x48/00C896/ffffff?text=AY",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "https://placehold.co/72x72/00C896/ffffff?text=AY",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://placehold.co/96x96/00C896/ffffff?text=AY",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://placehold.co/144x144/00C896/ffffff?text=AY",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://placehold.co/192x192/00C896/ffffff?text=AY",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://placehold.co/512x512/00C896/ffffff?text=AY",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "categories": ["finance", "productivity"],
-  "lang": "es",
-  "screenshots": []
+  "screenshots": [
+    {
+      "src": "https://placehold.co/390x844/0A0A14/00C896?text=AhorraYa",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pantalla principal de AhorraYa"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Añadir gasto",
+      "short_name": "Añadir",
+      "description": "Registra un gasto rápidamente",
+      "url": "/app.html#anadir",
+      "icons": [{ "src": "https://placehold.co/96x96/FF6B35/ffffff?text=+", "sizes": "96x96" }]
+    },
+    {
+      "name": "Mi colchón",
+      "short_name": "Colchón",
+      "description": "Ver mi ahorro acumulado",
+      "url": "/app.html#colchon",
+      "icons": [{ "src": "https://placehold.co/96x96/7C5CFC/ffffff?text=P", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
 }
